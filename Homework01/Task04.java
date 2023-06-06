@@ -9,6 +9,9 @@
  * Решение: 22 + 22 = 44
  */
 public class Task04 {
+    public static void main(String[] args) {
+        System.out.print("\033[H\033[J");
+    }
 
     
 }
