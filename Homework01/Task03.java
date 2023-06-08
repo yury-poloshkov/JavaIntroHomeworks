@@ -19,6 +19,7 @@ public class Task03 {
         System.out.printf("Результат: %s %s %s = %s", 
         Float.toString(number1), operation, Float.toString(number2), Calculate(operation, number1, number2));
         System.out.println();
+        scn.close();
     }
     public static String Calculate(String operation, float number1, float number2){
         String result = null;
