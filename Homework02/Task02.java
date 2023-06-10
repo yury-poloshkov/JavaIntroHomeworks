@@ -32,7 +32,7 @@ public class Task02 {
             FileWriter logfile = new FileWriter("bubblesortlog.txt", false);
             logfile.append(Arrays.toString(array) + " - initial\n");
             for (int i = 0; i < array.length - 1; i++) {
-                for (int j = 0; j < array.length -1 - i; j++) {
+                for (int j = 0; j < array.length - 1 - i; j++) {
                     if (array[j] > array[j + 1]){
                         int temp = array[j];
                         array[j] = array[j + 1];
