@@ -20,11 +20,8 @@ public class Task01 {
             jsonString = freader.readLine();
             freader.close();
         } catch (Exception e) {
-            System.out.println("Файл данных отсутствует...");
-        }
-
-        
+            System.out.println("Что-то пошло не так...");
+        }        
         System.out.println(jsonString);
-
     }
 }
