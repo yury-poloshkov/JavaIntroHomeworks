@@ -19,12 +19,13 @@ public class Task03 {
         System.out.print("\033[H\033[J");
         String jsonString = null;
         try {
-            BufferedReader freader = new BufferedReader(new FileReader("jsonstringtask01.txt")); 
+            BufferedReader freader = new BufferedReader(new FileReader("jsonstringtask03.txt")); 
             jsonString = freader.readLine();
             freader.close();
         } catch (Exception e) {
             System.out.println("Что-то пошло не так...");
         }        
         System.out.println(jsonString);
+        
     }
 }
