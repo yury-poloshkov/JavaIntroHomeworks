@@ -34,7 +34,7 @@ public class Task01 {
         
         // 1) Нужно удалить из него чётные числа
         int divider = 2;
-        List<Integer> devidedArrayList = removeMultiple(testArrayList, divider);
+        List<Integer> dividedArrayList = removeMultiple(testArrayList, divider);
         System.out.printf("Оставшиеся элементы, после удаления всех, делящихся на %d : %s\n", divider, dividedArrayList.toString());
     }
 
