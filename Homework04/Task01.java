@@ -65,11 +65,9 @@ public class Task01 {
             sign = -1;
             number.removeLast();
         }
-        int size = 0;
         int result = 0;
         while (!number.isEmpty()){
-            result += Integer.parseInt(number.poll()) * (int) Math.pow(10, size);
-            size++;
+            result = result * 10 + Integer.parseInt(number.pollLast());
         }
         return result * sign;
     }
