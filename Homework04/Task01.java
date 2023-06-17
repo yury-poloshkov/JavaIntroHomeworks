@@ -19,7 +19,7 @@ public class Task01 {
         int minValue = 0;
         int maxValue = 10;  
         Deque<String> number1 = fillDeque(minSize, maxSize, minValue, maxValue);
-        System.out.print(number1);
+        System.out.println(number1);
         Deque<String> number2 = fillDeque(minSize, maxSize, minValue, maxValue);
         System.out.println(number2);
         String operation = "*";
@@ -43,7 +43,7 @@ public class Task01 {
                 return null;
                 //break;
         }
-        System.out.printf("%d %s %d = %d \n", num1,operation, num2, res);
+        System.out.printf("%d %s %d = %d \n", num1, operation, num2, res);
         String sign = null;
         if (res < 0){
             sign = "-";
@@ -78,7 +78,7 @@ public class Task01 {
         Deque<String> result = new LinkedList<>();
         int size = (int) (minSize +  Math.random()*(maxSize - minSize));
             for (int i = 0; i < size; i++) {
-                result.add(""+(int) (minValue + Math.random()*(maxValue - minSize)));
+                result.add(""+(int) (minValue + Math.random()*(maxValue - minValue)));
             }
             if (Math.random()>0.5) result.add("-");
         return result;
