@@ -10,7 +10,7 @@ import java.util.List;
  *   3) Найти максимальное значение
  *   4) Найти среднее значение
  */
-public class Task01 {
+public class Task09 {
 
     public static void main(String[] args) {
         System.out.print("\033[H\033[J");

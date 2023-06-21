@@ -12,7 +12,7 @@ import java.util.List;
  * 2) Сложите два числа и верните сумму в виде связанного списка.
  * Одно или два числа могут быть отрицательными.
  */
-public class Task01 {
+public class Task10 {
     public static void main(String[] args) {
         int minSize = 2;
         int maxSize = 7;

@@ -11,7 +11,7 @@ import java.io.FileReader;
  * Вывод: select * from students WHERE name=Ivanov AND country=Russia AND city=Moscow
  */
 
-public class Task01 {
+public class Task05 {
 
     public static void main(String[] args) {
         System.out.print("\033[H\033[J");

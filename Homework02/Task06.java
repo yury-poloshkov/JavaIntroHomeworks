@@ -7,7 +7,7 @@
 import java.io.FileWriter;
 import java.util.Arrays;
 
-public class Task02 {
+public class Task06 {
     public static void main(String[] args) {
         System.out.print("\033[H\033[J");
         int arraySize = 10;
