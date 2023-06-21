@@ -15,23 +15,30 @@ import java.util.Scanner;
 public class Task11 {
     public static void main(String[] args) {
         final List<String> menu = new ArrayList<>(List.of(
-            "--- Телефонный справочник v.2023.06.21 -----",
+            "--- Телефонный справочник v.2023.06.21 -----\n",
             "--- ГЛАВНОЕ МЕНЮ ---------------------------",
             "1. Распечатать справочник",
             "2. Создать новый контакт",
             "3. Добавить номер к существующему контакту",
-            "4. Удалить контакт",
-            "5. Удалить номер у существующего контакта",
+            // "4. Переименовать контакт",
+            // "5. Изменить номер у существующего контакта",
+            // "6. Удалить контакт",
+            // "7. Удалить номер у существующего контакта",
+            "--------------------------------------------",
+            "System/service options:",
+            "8. Очистить справочник",
+            "9. Инициировать тестовыми значениями",
+            "--------------------------------------------",
             "0. Выход"));
-        //LinkedHashMap<String, ArrayList<String>> phonebook = new LinkedHashMap<>();
+
         HashMap<String, ArrayList<String>> phonebook = new HashMap<>();
-        initiatePhB(phonebook);
+        
         int userChoice = -1;
         while (userChoice != 0) {
             userChoice = showMainMenu(menu);
             switch (userChoice) {
                 case 1:
-                    System.out.println(phonebook);
+                    printPhB(phonebook);
                     timeOut();               
                     break;
                 case 2:
@@ -40,9 +47,20 @@ public class Task11 {
                 case 3:
                     addPhoneNumber(phonebook);
                     break;
-                case 4, 5:
+                case 4, 5, 6, 7:
                     System.out.println("Функционал в разработке");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                     break;
+                case 8:
+                    cleanPhB(phonebook);
+                    break;
+                case 9:
+                    initiatePhB(phonebook);
                 case 0:
                     System.out.println("--- Работа программы завершена ---");
                     break;
@@ -50,6 +68,45 @@ public class Task11 {
                     System.out.printf("Error: %s - unsupported operation!\n", userChoice);
                     timeOut();
                     break;
+            }
+        }
+    }
+
+    private static void cleanPhB(HashMap<String, ArrayList<String>> phonebook) {
+        System.out.print("\033[H\033[J");
+        System.out.println("--- Удаление справочника ---");
+        System.out.print("Вы действительно хотите очистить справочник (y/n): ");
+        Scanner scn = new Scanner(System.in);
+        if (scn.nextLine().toLowerCase().equals("y")){
+            phonebook.clear();
+        }
+    }
+
+    private static void printPhB(HashMap<String, ArrayList<String>> phonebook) {
+        System.out.print("\033[H\033[J");
+        System.out.println("--- КОНТАКТЫ ---");        String[][] numbersCounter = new String[2][phonebook.size()];
+        int curContact = 0;
+        for (var item: phonebook.entrySet()){
+            numbersCounter[0][curContact] = item.getKey();
+            numbersCounter[1][curContact] = "" + item.getValue().size();
+            for (int i = curContact; i > 0; i--){
+                if (Integer.parseInt(numbersCounter[1][i]) > Integer.parseInt(numbersCounter[1][i-1])){
+                    String temp = numbersCounter[1][i];
+                    numbersCounter[1][i] = numbersCounter[1][i-1];
+                    numbersCounter[1][i-1] = temp;
+                    temp = numbersCounter[0][i];
+                    numbersCounter[0][i] = numbersCounter[0][i-1];
+                    numbersCounter[0][i-1] = temp;
+                } else {
+                    i = 0;
+                }
+            }
+            curContact++;            
+        }       
+        for (int i = 0; i < numbersCounter[1].length; i++){
+            System.out.println(numbersCounter[0][i] + ":");
+            for (int j = 0; j < phonebook.get(numbersCounter[0][i]).size(); j++){
+                System.out.println("\t" + phonebook.get(numbersCounter[0][i]).get(j));
             }
         }
     }
@@ -91,7 +148,7 @@ public class Task11 {
                     System.out.printf("%d. %s\n", contacts.size(),item);
                 }
             }
-            System.out.print("Введите номер контакта, которому необходимо добавить номер (0 - если искомый контакт не на1йден): ");
+            System.out.print("Введите номер контакта, которому необходимо добавить номер (0 - если искомый контакт не найден): ");
             Scanner scn = new Scanner(System.in);
             int choice = Integer.parseInt(scn.nextLine());
             if (choice != 0){
@@ -100,7 +157,7 @@ public class Task11 {
         }
         return foundContact;
     }
-
+    
     private static void addNewContact(HashMap<String, ArrayList<String>> phonebook) {
         System.out.print("\033[H\033[J");
         System.out.println("--- Создание нового контакта ---");
@@ -127,23 +184,26 @@ public class Task11 {
             phonebook.put(name, numbers);
         }
     }
+
     private static void initiatePhB(HashMap<String, ArrayList<String>> phonebook) {
         phonebook.put("Иванов Иван", new ArrayList<String>(List.of("+79154567891", "+79147894512")));
         phonebook.put("Асександров Петр", new ArrayList<String>(List.of("+79154544678")));
         phonebook.put("Сидоров Александр", new ArrayList<String>(List.of("+79154578945", "+79142365814", "+79647851234")));
         phonebook.put("Петров Иван", new ArrayList<String>(List.of("+79678954512")));
     }
+
     public static int showMainMenu(List<String> menu) {
         System.out.print("\033[H\033[J");
         for (String option : menu) {
             System.out.println(option);
         }
-        System.out.print("Введите код операции: ");
+        System.out.print("\nВведите код операции: ");
         Scanner scn = new Scanner(System.in);
         int choice = Integer.parseInt(scn.next());
         if (choice == 0) scn.close();
         return choice;
     }
+
     private static void timeOut(){
         System.out.println("Press ENTER to continue");
         Scanner stopscn = new Scanner(System.in);
