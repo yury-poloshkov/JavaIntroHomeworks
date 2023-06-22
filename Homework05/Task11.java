@@ -22,8 +22,8 @@ public class Task11 {
             "3. Добавить номер к существующему контакту",
             "4. Удалить контакт",
             "5. Удалить номер у существующего контакта",
-            // "6. Переименовать контакт",
-            // "7. Изменить номер у существующего контакта",
+            "6. Переименовать контакт",
+            "7. Изменить номер у существующего контакта",
             "--------------------------------------------",
             "System/service options:",
             "8. Очистить справочник",
@@ -53,14 +53,11 @@ public class Task11 {
                 case 5:
                     removeNumber(phonebook);
                     break;
-                case 6, 7:
-                    System.out.println("Функционал в разработке");
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                case 6:
+                    renameContact(phonebook);
+                    break;
+                case 7:
+                    changeNumber(phonebook);            
                     break;
                 case 8:
                     cleanPhB(phonebook);
@@ -78,9 +75,33 @@ public class Task11 {
         }
     }
 
-    private static void removeNumber(HashMap<String, ArrayList<String>> phonebook) {
+    private static void renameContact(HashMap<String, ArrayList<String>> phonebook) {
         System.out.print("\033[H\033[J");
-        System.out.println("--- Удалене номера контакта ---");
+        System.out.println("--- Изменение имени контакта ---");
+        System.out.print("Введите маску поиска имени контакта: ");
+        Scanner scn = new Scanner(System.in);
+        String contact = scn.nextLine();
+        contact = findContact(phonebook, contact);
+        if (contact != null) {
+            ArrayList<String> numbers = new ArrayList<>(phonebook.get(contact));
+            phonebook.remove(contact);
+            System.out.printf("--- Изменение имени контакту %s ---\n", contact);
+            System.out.print("Введите новое имя: ");
+            phonebook.put(scn.nextLine(), numbers); 
+        } else {
+            System.out.println("По указанной маске контактов не обнаружено.");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void changeNumber(HashMap<String, ArrayList<String>> phonebook) {
+        System.out.print("\033[H\033[J");
+        System.out.println("--- Изменение номера контакта ---");
         System.out.print("Введите маску поиска имени контакта: ");
         Scanner scn = new Scanner(System.in);
         String contact = scn.nextLine();
@@ -91,7 +112,39 @@ public class Task11 {
             for (int i = 0; i < numbers.size(); i++) {
                 System.out.printf("%d. %s\n", i+1, numbers.get(i));
             }
-            System.out.print("Введите код удаляемого номера (0 - если искомый омер не найден): ");
+            System.out.print("Введите код изменяемого номера (0 - если искомый омер не найден): ");
+            int changingNumber = Integer.parseInt(scn.nextLine());
+            if (changingNumber != 0){
+                System.out.print("Введите новый номер: ");
+                String newNumber = scn.nextLine();
+                numbers.set(changingNumber-1, newNumber);
+                phonebook.replace(contact, numbers);
+            } 
+        } else {
+            System.out.println("По указанной маске контактов не обнаружено.");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void removeNumber(HashMap<String, ArrayList<String>> phonebook) {
+        System.out.print("\033[H\033[J");
+        System.out.println("--- Удаление номера контакта ---");
+        System.out.print("Введите маску поиска имени контакта: ");
+        Scanner scn = new Scanner(System.in);
+        String contact = scn.nextLine();
+        contact = findContact(phonebook, contact);
+        if (contact != null) {
+            ArrayList<String> numbers = new ArrayList<>(phonebook.get(contact));
+            System.out.printf("--- Удаление номера контакту %s ---\n", contact);
+            for (int i = 0; i < numbers.size(); i++) {
+                System.out.printf("%d. %s\n", i+1, numbers.get(i));
+            }
+            System.out.print("Введите код удаляемого номера (0 - если искомый номер не найден): ");
             int deletingNumber = Integer.parseInt(scn.nextLine());
             if (deletingNumber != 0){
                 numbers.remove(deletingNumber-1);
@@ -110,7 +163,7 @@ public class Task11 {
 
     private static void deleteContact(HashMap<String, ArrayList<String>> phonebook) {
         System.out.print("\033[H\033[J");
-        System.out.println("--- Удалене контакта ---");
+        System.out.println("--- Удаление контакта ---");
         System.out.print("Введите маску поиска имени контакта: ");
         Scanner scn = new Scanner(System.in);
         String contact = scn.nextLine();
@@ -140,7 +193,8 @@ public class Task11 {
 
     private static void printPhB(HashMap<String, ArrayList<String>> phonebook) {
         System.out.print("\033[H\033[J");
-        System.out.println("--- КОНТАКТЫ ---");        String[][] numbersCounter = new String[2][phonebook.size()];
+        System.out.println("--- КОНТАКТЫ ---");        
+        String[][] numbersCounter = new String[2][phonebook.size()];
         int curContact = 0;
         for (var item: phonebook.entrySet()){
             numbersCounter[0][curContact] = item.getKey();
