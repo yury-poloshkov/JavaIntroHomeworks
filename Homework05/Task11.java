@@ -112,7 +112,7 @@ public class Task11 {
             for (int i = 0; i < numbers.size(); i++) {
                 System.out.printf("%d. %s\n", i+1, numbers.get(i));
             }
-            System.out.print("Введите код изменяемого номера (0 - если искомый омер не найден): ");
+            System.out.print("Введите код изменяемого номера (0 - если искомый номер не найден): ");
             int changingNumber = Integer.parseInt(scn.nextLine());
             if (changingNumber != 0){
                 System.out.print("Введите новый номер: ");
